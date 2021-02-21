@@ -16,7 +16,7 @@ bot = telebot.TeleBot(TOKEN)
 @bot.message_handler(commands=['start', 'go'])
 def start_handler(message):
     bot.send_message(message.chat.id, 'Привет, я предосталяю информацию о днях рождениях!')
-
+git
 # @bot.message_handler(content_types=['text'])
 # def text_handler(message):
 #     text = message.text
