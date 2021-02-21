@@ -2,7 +2,7 @@ import telebot
 import pyexcel
 from Config import TOKEN
 
-bot = telebot.TeleBot(TOKEN)
+bot = telebot.TeleBot('1661150170:AAFxO9tIQlwpSB0QgJzgkHjQjBUP_jiylEM')
 #bd_array = pyexcel.get_array(file_name="./src/ДР.xls")
 
 # move = input('hello:')
@@ -16,7 +16,7 @@ bot = telebot.TeleBot(TOKEN)
 @bot.message_handler(commands=['start', 'go'])
 def start_handler(message):
     bot.send_message(message.chat.id, 'Привет, я предосталяю информацию о днях рождениях!')
-git
+
 # @bot.message_handler(content_types=['text'])
 # def text_handler(message):
 #     text = message.text
