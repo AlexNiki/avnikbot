@@ -2,7 +2,7 @@ import telebot
 import pyexcel
 from Config import TOKEN
 
-bot = telebot.TeleBot('1661150170:AAFxO9tIQlwpSB0QgJzgkHjQjBUP_jiylEM')
+bot = telebot.TeleBot(TOKEN)
 #bd_array = pyexcel.get_array(file_name="./src/ДР.xls")
 
 # move = input('hello:')
