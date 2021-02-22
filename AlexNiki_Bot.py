@@ -23,8 +23,8 @@ def text_handler(message):
     bd_records = cursor.fetchall()
 
     for row in bd_records:
-        message = row[0] + ' ' + row[1] + ' ' + row[2] + ' ' + row[3].strftime("%d-%m-%Y")
-        bot.send_message(message.chat.id, message)
+        msg = row[0] + ' ' + row[1] + ' ' + row[2] + ' ' + row[3].strftime("%d-%m-%Y")
+        bot.send_message(message.chat.id, msg)
     conn.close()
 
 bot.polling()
