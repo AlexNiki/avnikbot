@@ -7,6 +7,8 @@ name = "pypi"
 pytelegrambotapi = "*"
 beautifulsoup4 = "*"
 psycopg2-binary = "*"
+schedule = "*"
+datetime = "*"
 
 [dev-packages]
 
