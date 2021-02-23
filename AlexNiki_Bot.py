@@ -13,6 +13,7 @@ bot = telebot.TeleBot(TOKEN)
 @bot.message_handler(commands=['start', 'go'])
 def start_handler(message):
     bot.send_message(message.chat.id, 'Привет, я предосталяю информацию о днях рождениях!')
+    bot.send_message(message.chat.id, message.chat.id)
 
 @bot.message_handler(content_types=['text'])
 def text_handler(message):
@@ -43,15 +44,15 @@ def check_birthday():
     bd_records = cursor.fetchall()
 
     if len(bd_records) == 0:
-        bot.send_message(bot.get_updates(), 'Сегодня дней рождений нет!')
+        bot.send_message('462203157', 'Сегодня дней рождений нет!')
     else:
         for row in bd_records:
             msg = row[0] + ' ' + row[1] + ' ' + row[2] + ' ' + row[3].strftime("%d-%m-%Y")
-            bot.send_message(bot.get_updates(), msg)
+            bot.send_message('462203157', msg)
 
     conn.close()
 
-schedule.every().day.at("17:35").do(check_birthday)
+schedule.every().day.at("18:13").do(check_birthday)
 
 class ScheduleMessage():
     def try_send_schedule():
