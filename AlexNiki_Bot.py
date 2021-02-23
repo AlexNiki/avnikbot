@@ -51,7 +51,7 @@ def check_birthday():
 
     conn.close()
 
-schedule.every().day.at("20:31").do(check_birthday)
+schedule.every().day.at("17:35").do(check_birthday)
 
 class ScheduleMessage():
     def try_send_schedule():
