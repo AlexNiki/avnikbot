@@ -43,15 +43,15 @@ def check_birthday():
     bd_records = cursor.fetchall()
 
     if len(bd_records) == 0:
-        bot.send_message(message.chat.id, 'Сегодня дней рождений нет!')
+        bot.send_message(bot.get_updates(), 'Сегодня дней рождений нет!')
     else:
         for row in bd_records:
             msg = row[0] + ' ' + row[1] + ' ' + row[2] + ' ' + row[3].strftime("%d-%m-%Y")
-            bot.send_message(message.chat.id, msg)
+            bot.send_message(bot.get_updates(), msg)
 
     conn.close()
 
-schedule.every().day.at("08:00").do(check_birthday)
+schedule.every().day.at("20:22").do(check_birthday)
 
 class ScheduleMessage():
     def try_send_schedule():
