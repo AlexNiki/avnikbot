@@ -46,13 +46,14 @@ def check_birthday():
     if len(bd_records) == 0:
         bot.send_message('462203157', 'Сегодня дней рождений нет!')
     else:
+        bot.send_message('462203157', 'Сегодня день рождения у:')
         for row in bd_records:
             msg = row[0] + ' ' + row[1] + ' ' + row[2] + ' ' + row[3].strftime("%d-%m-%Y")
             bot.send_message('462203157', msg)
 
     conn.close()
 
-schedule.every().day.at("18:13").do(check_birthday)
+schedule.every().day.at("04:00").do(check_birthday)
 
 class ScheduleMessage():
     def try_send_schedule():
