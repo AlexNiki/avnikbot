@@ -1,4 +1,5 @@
 import telebot
+import pyparsing as pp
 import psycopg2
 import schedule
 import datetime
@@ -22,16 +23,25 @@ def text_handler(message):
 
     conn = psycopg2.connect(SQLALCHEMY_DATABASE_URI)
     cursor = conn.cursor()
-    postgreSQL_select_Query = "select * from birthdays where lastname = %s or firstname = %s or middlename = %s"
-    cursor.execute(postgreSQL_select_Query, (text, text, text))
+
+    if text.find('.') != -1:
+        module_name = pp.Word(pp.nums) + '.' + pp.Word(pp.nums)
+        parse = module_name.parseString(text)
+        postgreSQL_select_Query = "select * from birthdays where day = %s and month = %s"
+        cursor.execute(postgreSQL_select_Query, (parse[0], parse[2]))
+    else:
+        postgreSQL_select_Query = "select * from birthdays where lastname = %s or firstname = %s or middlename = %s"
+        cursor.execute(postgreSQL_select_Query, (text, text, text))
+
     bd_records = cursor.fetchall()
 
     if len(bd_records) == 0:
         bot.send_message(message.chat.id, 'Ничего не найдено')
     else:
         for row in bd_records:
-            msg = row[0] + ' ' + row[1] + ' ' + row[2] + ' ' + row[3].strftime("%d-%m-%Y")
+            msg = row[0] + ' ' + row[1] + ' ' + row[2] + ' ' + row[3].strftime("%d-%m")
             bot.send_message(message.chat.id, msg)
+
     conn.close()
 
 
@@ -39,8 +49,8 @@ def check_birthday():
     now = datetime.datetime.now()
     conn = psycopg2.connect(SQLALCHEMY_DATABASE_URI)
     cursor = conn.cursor()
-    postgreSQL_select_Query = "select * from birthdays where birthday = %s"
-    cursor.execute(postgreSQL_select_Query, (now.strftime("%Y-%m-%d"),))
+    postgreSQL_select_Query = "select * from birthdays where day = %s and month = %s"
+    cursor.execute(postgreSQL_select_Query, (now.strftime("%d"), now.strftime("%m")))
     bd_records = cursor.fetchall()
 
     if len(bd_records) == 0:
@@ -48,7 +58,7 @@ def check_birthday():
     else:
         bot.send_message('462203157', 'Сегодня день рождения у:')
         for row in bd_records:
-            msg = row[0] + ' ' + row[1] + ' ' + row[2] + ' ' + row[3].strftime("%d-%m-%Y")
+            msg = row[0] + ' ' + row[1] + ' ' + row[2] + ' ' + row[3].strftime("%d.%m")
             bot.send_message('462203157', msg)
 
     conn.close()
